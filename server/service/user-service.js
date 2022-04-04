@@ -64,9 +64,8 @@ class UserService {
 		return users;
 	}
 
-	async addReminder(data, text) {
 
-	}
+
 }
 
 module.exports = new UserService();
