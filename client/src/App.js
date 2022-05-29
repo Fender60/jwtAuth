@@ -1,10 +1,10 @@
 import './App.scss';
-import MyForm from "./components/myForm/MyForm";
+import LoginForm from "./components/loginForm/LoginForm";
 import {useEffect} from "react";
 import store from "./actions/store";
 import {observer} from "mobx-react-lite";
-import MyButton from "./components/myButton/MyButton";
 import About from "./components/about/About";
+
 
 function App() {
 
@@ -19,7 +19,7 @@ function App() {
     }
 
     if(!store.isAuth){
-        return (<MyForm/>);
+        return (<LoginForm/>);
     }
 
   return (

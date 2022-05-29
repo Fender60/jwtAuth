@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './myForm.scss'
+import './LoginForm.scss'
 import MyInput from "../myInput/MyInput";
 import MyButton from "../myButton/MyButton";
 import store from '../../actions/store';
@@ -7,7 +7,7 @@ import {observer} from "mobx-react-lite";
 
 
 
-const MyForm = () => {
+const LoginForm = () => {
 
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
@@ -20,13 +20,18 @@ const MyForm = () => {
                     <form action="#" className="auth__form">
                         <div style={{color: 'red'}}>{store.servError}</div>
                         <MyInput
-                                 value={phone}
-                                 setValue={setPhone}
-                                 type='tel'
-                                 placeholder='Номер телефона'/>
-                        <MyInput value={password} setValue={setPassword} type='password' placeholder='Пароль'/>
-                        <MyButton name="Вход" onClick = {() => store.login(phone, password)} />
-                        <MyButton name="Регистрация" onClick = {() => store.registration(phone, password)}/>
+                        	value={phone}
+                        	onChange = {(e) => setPhone(e.target.value)}
+                        	type='tel'
+                        	placeholder='Номер телефона'/>
+                        <MyInput 
+									value={password} 
+									onChange = {(e) => setPassword(e.target.value)} 
+									type='password' 
+									placeholder='Пароль'
+								/>
+                        <MyButton onClick = {() => store.login(phone, password)}>Вход</MyButton>
+                        <MyButton onClick = {() => store.registration(phone, password)}>Регистрация</MyButton>
                     </form>
                 </div>
             </div>
@@ -35,4 +40,4 @@ const MyForm = () => {
     );
 };
 
-export default observer(MyForm);
+export default observer(LoginForm);

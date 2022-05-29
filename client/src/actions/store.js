@@ -26,6 +26,8 @@ class Store {
         this.isLoading = bool;
     }
 
+
+
     async login(phone, password) {
         try {
             const response = await $api.post('/login', {
@@ -83,6 +85,7 @@ class Store {
             this.setLoading(false);
         }
     }
+
 }
 
 export default new Store();
