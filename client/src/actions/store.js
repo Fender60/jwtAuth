@@ -86,6 +86,27 @@ class Store {
         }
     }
 
+	 async addReminder(data, text) {
+		try {
+			const response = await $api.post('/add', {
+				 data,
+				 text
+			});
+		} catch (e) {
+			this.servError = e.response?.data?.message;
+		}
+	}
+
+	async removeReminder(reminderId) {
+		try {
+			const response = await $api.post('/delete', {
+				reminderId
+			});
+		} catch (e) {
+			this.servError = e.response?.data?.message;
+		}
+	}
+
 }
 
 export default new Store();

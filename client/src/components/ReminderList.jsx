@@ -6,9 +6,10 @@ const ReminderList = ({reminders}) => {
 	return (
 		<div>
 			<h1 style={{textAlign: 'center'}}>Список напоминаний</h1>
-			{reminders.map((reminder, index) => 
-				<Reminder reminder = {reminder} key ={index}/>
+			{reminders.map((reminder) => 
+				<Reminder reminder = {reminder} key ={reminder._id}/>
 			)}
+
 		</div>
 	);
 };

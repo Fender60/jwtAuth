@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import MyButton from '../myButton/MyButton';
 import MyInput from '../myInput/MyInput';
+import store from '../../actions/store';
+import {observer} from "mobx-react-lite";
 
-const ReminderForm = ({create}) => {
+const ReminderForm = ({setVisible}) => {
 
 	const [reminder, setReminder] = useState({data: '', text: ''});
 
-	const addNewReminder = (e) => {
+	const newReminder = (e) => {
 		e.preventDefault();
-		const newReminder = {
-			...reminder
-	  }
-	  create(newReminder);
-	  setReminder({data: '', text: ''});
-  }
+		store.addReminder(reminder.data, reminder.text)
+		setReminder({data: '', text: ''});
+		setVisible(false);
+	}
+
 
 	return (
 		<div>
@@ -30,10 +31,10 @@ const ReminderForm = ({create}) => {
 					type= 'text'
 					placeholder= 'Текст напоминания'
 				/>
-				<MyButton onClick={addNewReminder}>Создать напоминание</MyButton>
+				<MyButton onClick={newReminder}>Создать напоминание</MyButton>
 			</form>
 		</div>
 	);
 };
 
-export default ReminderForm;
+export default observer(ReminderForm);

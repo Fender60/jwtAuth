@@ -1,7 +1,12 @@
 import React from 'react';
+import store from '../../actions/store';
+import ReminderForm from '../reminderForm/ReminderForm';
 import './reminder.scss';
 
+
 const Reminder = (props) => {
+
+
 	return (
 		<div className='reminder'>
 			<div className='reminder__container'>
@@ -11,7 +16,7 @@ const Reminder = (props) => {
 				</div>
 				<div className="reminder__button">
 					<button>Редактировать</button>
-					<button>Удалить</button>
+					<button onClick={() => store.removeReminder(props.reminder)}>Удалить</button>
 				</div>
 			</div>
 			<hr style={{margin: '15px 0'}}/>

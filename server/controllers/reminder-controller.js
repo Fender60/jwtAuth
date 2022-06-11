@@ -17,18 +17,28 @@ class ReminderController {
 		}
 	}
 
-	async deleteReminder(req, res, next) {
+	async editReminder(req, res, next) {
 		try {
-				const {userId} = req.cookies;
-				const {data, text} = req.body;
-				const userBody = await reminderService.addReminder(data, text, userId);
-
-				return userBody;
+				const {reminderId, data, text} = req.body;
+				const reminderBody = await reminderService.editReminder(reminderId, data, text);
+				return reminderBody;
 		}
 		catch (e) {
 				next(e);
 		}
 	}
+
+	async deleteReminder(req, res, next) {
+		try {
+				const {reminderId} = req.body;
+				const reminderBody = await reminderService.deleteReminder(reminderId);
+				return reminderBody;
+		}
+		catch (e) {
+				next(e);
+		}
+	}
+
 
 	async allReminders(req, res, next) {
 		try {

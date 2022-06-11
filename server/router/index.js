@@ -12,8 +12,9 @@ router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.get('/users', authMiddlaware, userController.getUsers);
-router.post('/addreminder', reminderController.addReminder);
-router.get('/deletereminder', reminderController.deleteReminder);
+router.post('/add', reminderController.addReminder);
+router.post('/delete', reminderController.deleteReminder);
+router.post('/edit', reminderController.editReminder);
 router.get('/reminders', reminderController.allReminders);
 
 module.exports = router;
