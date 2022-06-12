@@ -3,13 +3,12 @@ import MyButton from "../myButton/MyButton";
 import store from "../../actions/store";
 import ReminderList from '../ReminderList';
 import axios from 'axios';
-import Modal from '../modal/Modal';
-import ReminderForm from '../reminderForm/ReminderForm';
+import ReminderModal from '../Remindermodal/ReminderModal';
 
 const About = () => {
 
 	const [reminders, setReminders] = useState([]);
-	const [modal, setModal] = useState(false);
+	const [addModal, setAddModal] = useState(false);
 
 	async function fetchReminders() {
 		try {
@@ -20,7 +19,6 @@ const About = () => {
 		}
 	}
 
-
 	useEffect(() => {
 		fetchReminders();
 	});
@@ -30,10 +28,8 @@ const About = () => {
 			<div className="content">
 				<div className="content__container">
 					<MyButton onClick={() => store.logout()}>Выйти</MyButton>
-					<MyButton onClick={() => setModal(true)}>Добавить напоминание</MyButton>
-					<Modal visible={modal} setVisible={setModal}>
-					<ReminderForm setVisible={setModal}/>
-					</Modal>
+					<MyButton onClick={() => setAddModal(true)}>Добавить напоминание</MyButton>
+					<ReminderModal visible={addModal} setVisible={setAddModal}/>
 					<ReminderList reminders={reminders}/>
 				</div>
 			</div>

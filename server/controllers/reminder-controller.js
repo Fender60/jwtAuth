@@ -19,8 +19,8 @@ class ReminderController {
 
 	async editReminder(req, res, next) {
 		try {
-				const {reminderId, data, text} = req.body;
-				const reminderBody = await reminderService.editReminder(reminderId, data, text);
+				const {id, data, text} = req.body;
+				const reminderBody = await reminderService.editReminder(id, data, text);
 				return reminderBody;
 		}
 		catch (e) {

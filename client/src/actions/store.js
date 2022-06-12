@@ -107,6 +107,18 @@ class Store {
 		}
 	}
 
+	async editReminder(data, text, id){
+		try {
+			const response = await $api.post('/edit', {
+				data,
+				text,
+				id
+			});
+		} catch (e) {
+			this.servError = e.response?.data?.message;
+		}
+	}
+
 }
 
 export default new Store();

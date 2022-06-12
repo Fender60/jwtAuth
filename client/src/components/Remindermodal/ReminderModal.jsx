@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import store from '../../actions/store';
 import MyButton from '../myButton/MyButton';
 import MyInput from '../myInput/MyInput';
-import store from '../../actions/store';
-import {observer} from "mobx-react-lite";
+import classes from './Modal.module.css';
 
-const ReminderForm = ({setVisible}) => {
+const ReminderModal = ({visible, setVisible}) => {
 
+	const rootClass = [classes.modal];
 	const [reminder, setReminder] = useState({data: '', text: ''});
 
 	const newReminder = (e) => {
@@ -15,9 +16,15 @@ const ReminderForm = ({setVisible}) => {
 		setVisible(false);
 	}
 
+	if(visible){
+		rootClass.push(classes.active);
+	}
 
 	return (
-		<div>
+		<div className={rootClass.join(' ')}
+			onClick = {() => setVisible(false)}>
+			<div className={classes.content} onClick = {(e) => e.stopPropagation()}>
+			<h2>Новое напоминание</h2>
 			<form>
 				<MyInput
 					value={reminder.data}
@@ -33,8 +40,9 @@ const ReminderForm = ({setVisible}) => {
 				/>
 				<MyButton onClick={newReminder}>Создать напоминание</MyButton>
 			</form>
+			</div>
 		</div>
 	);
 };
 
-export default observer(ReminderForm);
+export default ReminderModal;
