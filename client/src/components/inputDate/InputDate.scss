@@ -1,0 +1,45 @@
+.react-datepicker__day {
+	color: greenyellow;
+}
+
+
+.react-datepicker__input-container input {
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	-ms-border-radius: 30px;
+	-o-border-radius: 30px;
+	border-radius: 30px;
+	-webkit-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-moz-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-ms-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-o-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0,0,0,0.08) inset;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	background: #eae7e7;
+	border: 1px solid #c8c8c8;
+	color: #777;
+	font: 13px Helvetica, Arial, sans-serif;
+	margin: 0 0 30px;
+	padding: 15px 10px 15px 40px;
+	width: 60%;
+ }
+ 
+ .react-datepicker__input-container input:focus {
+	-webkit-box-shadow: 0 0 2px #70f395 inset;
+	-moz-box-shadow: 0 0 2px #70f395 inset;
+	-ms-box-shadow: 0 0 2px #70f395 inset;
+	-o-box-shadow: 0 0 2px #70f395 inset;
+	box-shadow: 0 0 2px #70f395 inset;
+	background-color: #fff;
+	border: 1px solid #70f395;
+	outline: none;
+ }
+
+.react-datepicker--time-only {
+	color:#70f395;
+	background-color: red;
+ }

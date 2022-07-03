@@ -28,6 +28,8 @@ class Store {
 
 
 
+
+
     async login(phone, password) {
         try {
             const response = await $api.post('/login', {
@@ -57,10 +59,18 @@ class Store {
         }
     }
 
+	 async fetchReminders() {
+		try {
+			const response = await $api.get('/reminders', {withCredentials: true});
+			return response.data
+		} catch (e) {
+			console.log(e.response?.data?.message);
+		}
+	}
+
     async logout() {
         try {
             const response = await $api.post('/logout');
-
             localStorage.removeItem('token');
             this.setAuth(false);
             this.setUser({});
@@ -86,10 +96,11 @@ class Store {
         }
     }
 
-	 async addReminder(data, text) {
+	 async addReminder(date, time,  text) {
 		try {
 			const response = await $api.post('/add', {
-				 data,
+				 date,
+				 time,
 				 text
 			});
 		} catch (e) {
@@ -107,10 +118,11 @@ class Store {
 		}
 	}
 
-	async editReminder(data, text, id){
+	async editReminder(date, time, text, id){
 		try {
-			const response = await $api.post('/edit', {
-				data,
+			const response = await $api.put('/edit', {
+				date,
+				time,
 				text,
 				id
 			});

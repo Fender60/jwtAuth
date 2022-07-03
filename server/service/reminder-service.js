@@ -2,16 +2,16 @@ const ReminderModel = require('../models/reminder-model');
 
 class ReminderService {
 
-	async addReminder(data, text, userId) {
-
-		const reminder = await ReminderModel.create({user: userId, data: data, text: text});
+	async addReminder(date, time, text, userId) {
+		const reminder = await ReminderModel.create({user: userId, date: date, time: time, text: text});
 		return reminder;
 	}
 
-	async editReminder(reminderId, data, text) {
+	async editReminder(reminderId, date, time, text) {
 		const reminder = await ReminderModel.findOne({_id: reminderId});
 		if(reminder) {
-			reminder.data = data;
+			reminder.date = date;
+			reminder.time = time;
 			reminder.text = text;
 			return reminder.save();
 		}

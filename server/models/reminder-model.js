@@ -2,8 +2,10 @@ const {Schema, model} = require('mongoose');
 
 const ReminderSchema = new Schema({
 	user: {type: Schema.Types.ObjectId, ref: 'User'},
-	data: {type: String, required: true},
-	text: {type: String, required: true}
+	date: {type: Date, required: true},
+	time: {type: Date, required: true},
+	text: {type: String, required: true},
+	status: {type: String, required: true, default: 'new'}
 });
 
 module.exports = model('Reminder', ReminderSchema);

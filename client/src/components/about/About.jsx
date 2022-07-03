@@ -2,29 +2,27 @@ import React, {useEffect, useState} from 'react';
 import MyButton from "../myButton/MyButton";
 import store from "../../actions/store";
 import ReminderList from '../ReminderList';
-import axios from 'axios';
 import ReminderModal from '../Remindermodal/ReminderModal';
+import {Context} from '../context/Context';
+
 
 const About = () => {
 
 	const [reminders, setReminders] = useState([]);
 	const [addModal, setAddModal] = useState(false);
 
-	async function fetchReminders() {
-		try {
-			const response = await axios.get('http://localhost:5000/api/reminders', {withCredentials: true});
-			setReminders(response.data);
-		} catch (e) {
-			console.log(e.response?.data?.message);
-		}
-	}
 
 	useEffect(() => {
-		fetchReminders();
-	});
+	let response = store.fetchReminders()
+	response.then((value) => setReminders(value))
+	}, []);
 
 
 		return (
+			<Context.Provider value = {{
+				reminders,
+				setReminders
+			}}>
 			<div className="content">
 				<div className="content__container">
 					<MyButton onClick={() => store.logout()}>Выйти</MyButton>
@@ -33,6 +31,8 @@ const About = () => {
 					<ReminderList reminders={reminders}/>
 				</div>
 			</div>
+
+			</Context.Provider>
 		);
 };
 

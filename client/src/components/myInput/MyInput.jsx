@@ -4,8 +4,8 @@ import './MyInput.scss'
 const MyInput = (props) => {
 
     return (
-        <div className='input'>
-            <input {...props}/>
+        <div>
+            <input className='input' {...props}/>
         </div>
     );
 };

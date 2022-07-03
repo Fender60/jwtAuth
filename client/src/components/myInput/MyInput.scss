@@ -1,4 +1,4 @@
-input {
+.input {
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
@@ -23,7 +23,7 @@ input {
   width: 80%;
 }
 
-input:focus {
+.input:focus {
   -webkit-box-shadow: 0 0 2px #70f395 inset;
   -moz-box-shadow: 0 0 2px #70f395 inset;
   -ms-box-shadow: 0 0 2px #70f395 inset;

@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import store from '../../actions/store';
+import { Context } from '../context/Context';
+import InputDate from '../inputDate/InputDate';
+import InputTime from '../inputTime/InputTime';
 import MyButton from '../myButton/MyButton';
 import MyInput from '../myInput/MyInput';
 import classes from './Modal.module.css';
@@ -7,14 +10,21 @@ import classes from './Modal.module.css';
 const EditModal = ({body, visible, setVisible}) => {
 
 	const rootClass = [classes.modal];
-	const [reminder, setReminder] = useState({data: body.data, text: body.text});
+	const [date, setDate] = useState(new Date(body.date));
+	const [time, setTime] = useState(new Date(body.time));
+	const [text, setText] = useState(body.text);
+
+	const {reminders, setReminders} = useContext(Context);
+
 
 	const editReminder = (e) => {
 		e.preventDefault();
-		store.editReminder(reminder.data, reminder.text, body._id);
-		setReminder({data: '', text: ''});
+		store.editReminder(date, time, text, body._id)
+		.then(() => store.fetchReminders()
+		.then((value) => setReminders(value)));
 		setVisible(false);
 	}
+
 
 	if(visible){
 		rootClass.push(classes.active);
@@ -26,19 +36,29 @@ const EditModal = ({body, visible, setVisible}) => {
 			<div className={classes.content} onClick = {(e) => e.stopPropagation()}>
 			<h2>Редактирование</h2>
 			<form>
+			<InputDate
+						selected={date}
+						onChange={(date) => setDate(date)} 
+						dateFormat="dd.MM.yyyy"
+						placeholderText="Выберите дату"
+						locale="ru"
+					/>
+					<InputTime
+						selected={time}
+						onChange={(time) => setTime(time)}
+						showTimeInput
+						showTimeSelectOnly
+						timeInputLabel="Время:"
+						dateFormat="HH:mm"
+						placeholderText="Введите время"
+					/>
 				<MyInput
-					value={reminder.data}
-					onChange = {e => setReminder({...reminder, data: e.target.value})}
-					type= 'text'
-					placeholder= 'Дата'
-				/>
-				<MyInput
-					value={reminder.text}
-					onChange = {e => setReminder({...reminder, text: e.target.value})}
+					value={text}
+					onChange = {e => setText(e.target.value)}
 					type= 'text'
 					placeholder= 'Текст напоминания'
 				/>
-				<MyButton onClick={editReminder}>Сохранить</MyButton>
+				<MyButton onClick={editReminder} >Сохранить</MyButton>
 			</form>
 			</div>
 		</div>

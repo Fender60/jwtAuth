@@ -1,6 +1,7 @@
 const TelegramApi = require('node-telegram-bot-api');
-const mongoose = require('mongoose');
 const UserModel = require('../models/user-model');
+const ReminderModel = require('../models/reminder-model');
+const mongoose = require('mongoose');
 
 const token = '5027906155:AAHlRO-PAFLi_7c1gFlPQzCBrP4mtDw0Hpg';
 
@@ -18,6 +19,45 @@ const startBd = async () => {
 	}
 };
 startBd();
+
+
+async function searchAndSendMessage(id, text) {
+	const user = await UserModel.findOne({_id: id});
+	return bot.sendMessage(user.telegramId, text);
+}
+
+async function editStatus(id, status) {
+	const reminder = await ReminderModel.findOne({_id: id});
+	if(reminder.status !== 'done') {
+		reminder.status = status;
+	}
+	await reminder.save();
+}
+
+
+async function searchReminders() {
+	const dateNow = new Date();
+	const reminders = await ReminderModel.find();
+	reminders.forEach(element => {
+		const dateDb = new Date(element.date).getTime();
+		const rezult = dateNow.getTime()-dateDb; 
+		if(rezult > 86400000){
+			editStatus(element._id, 'no done');
+		} else if(rezult < 86400000 && rezult > 0) {
+			const timeDb = new Date(element.time);
+
+			if(timeDb.getHours() == dateNow.getHours() && timeDb.getMinutes() == dateNow.getMinutes()) {
+					searchAndSendMessage(element.user, element.text);
+					editStatus(element._id, 'done');
+			} else if(timeDb.getHours() < dateNow.getHours() || timeDb.getMinutes() < dateNow.getMinutes()) {
+				editStatus(element._id, 'no done');
+			}
+		}
+	});
+}
+
+let CronJob = require('cron').CronJob;
+new CronJob('00 * * * * *', () => {searchReminders()}, null, true);
 
 const keyboard = {
 	"parse_mode": "Markdown",
