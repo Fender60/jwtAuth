@@ -2,12 +2,12 @@ import {makeAutoObservable} from "mobx";
 import $api, {API_URL} from "../http";
 import axios from "axios";
 
+
 class Store {
 
     user = {};
     isAuth = false;
     isLoading = false;
-
     servError = '';
 
     constructor() {
@@ -26,9 +26,7 @@ class Store {
         this.isLoading = bool;
     }
 
-
-
-
+	
 
     async login(phone, password) {
         try {
@@ -83,11 +81,9 @@ class Store {
         this.setLoading(true);
         try {
             const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true});
-
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
-
         } catch (e) {
             console.log(e.response?.data?.message);
         }
@@ -105,7 +101,7 @@ class Store {
 			});
 		} catch (e) {
 			this.servError = e.response?.data?.message;
-		}
+		} 
 	}
 
 	async removeReminder(reminderId) {

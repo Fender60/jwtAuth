@@ -1,23 +1,28 @@
 import React from 'react';
-import store from '../actions/store';
 import './reminder/Reminder';
 import Reminder from './reminder/Reminder';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 
 
 
 const ReminderList = ({reminders}) => {
-	if(store.isLoadingReminder) {
-		return <div>Hello</div>
-	}
 	return (
 		<div>
 			<h1 style={{textAlign: 'center'}}>
 				{reminders.length === 0 ? `Напоминания отсутствуют` : `Список напоминаний`}
 			</h1>
+			<TransitionGroup>
 			{reminders.map((reminder) => 
-				<Reminder reminder = {reminder} key ={reminder._id}/>
+			<CSSTransition
+				key ={reminder._id}
+				timeout={500}
+				classNames="reminder"
+			>
+			<Reminder reminder = {reminder}/>
+			</CSSTransition>
 			)}
+			</TransitionGroup>
 
 		</div>
 	);

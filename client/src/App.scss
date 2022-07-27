@@ -1,0 +1,26 @@
+a:focus,a:active{outline:none;}
+a,a:visited{text-decoration:none; color: #000;}
+a:hover{text-decoration:none;}
+
+.remove-btn {
+	margin-right: 0.5rem;
+ }
+ 
+ .reminder-enter {
+	opacity: 0;
+ }
+ .reminder-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+ }
+ .reminder-exit {
+	opacity: 1;
+ }
+ .reminder-exit-active {
+	opacity: 0;
+	transition: opacity 500ms ease-in;
+ }
+
+ a.active {
+	color: rgb(181, 178, 178);
+ }
