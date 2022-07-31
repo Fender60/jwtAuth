@@ -3,6 +3,7 @@ import './App.scss';
 import {observer} from "mobx-react-lite";
 import {Routes ,Route, Navigate} from "react-router-dom";
 import LoginForm from "./pages/loginForm/LoginForm";
+import RegistrationForm from "./pages/registrationForm/RegistrationForm";
 import Home from './pages/Home';
 import Layout from './components/layout/Layout';
 import store from './actions/store';
@@ -29,7 +30,7 @@ function App() {
 					</Route>
 
 					<Route path='login' element={<LoginForm/>}/>
-					<Route path='registration' element={<LoginForm/>}/>
+					<Route path='registration' element={<RegistrationForm/>}/>
 					<Route path='*' element={<Navigate to="home" replace/>}/>
 				</Route>
 			</Routes>

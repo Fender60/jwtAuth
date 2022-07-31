@@ -51,7 +51,6 @@ const LoginForm = () => {
 									placeholder='Пароль'
 								/>
                         <MyButton onClick = {login}>Вход</MyButton>
-                        <MyButton onClick = {() => store.registration(phone, password)}>Регистрация</MyButton>
                     </form>
                 </div>
             </div>

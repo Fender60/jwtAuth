@@ -35,3 +35,10 @@
   background: linear-gradient(top,  rgba(254,193,81,1) 0%,rgba(254,231,154,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fec151', endColorstr='#fee79a',GradientType=0 );
 }
+
+.btn:disabled {
+	color: #4c4c4c;
+	background: #b2b0b0;
+	box-shadow: none;
+	border: 1px solid #4c4c4c;
+}
