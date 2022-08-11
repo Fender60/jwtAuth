@@ -61,7 +61,7 @@ useEffect(() => {
 						placeholderText="Введите время"
 					/>
 				</div>
-				<MyInput
+				<input className='auth__form-input'
 					value={text}
 					onChange = {e => setText(e.target.value)}
 					type= 'TextArea'

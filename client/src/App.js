@@ -9,6 +9,8 @@ import Layout from './components/layout/Layout';
 import store from './actions/store';
 import PrivateRoute from './components/hoc/PrivateRoute';
 import {AuthProvider} from './components/hoc/AuthProvider';
+import LinkTelegram from './pages/linkTelegram/LinkTelegram';
+import ErrorPage from './pages/ErrorPage';
 
 function App() {
 
@@ -24,15 +26,18 @@ function App() {
 			<Routes>
 				<Route path='/' element={<Layout/>}>
 					<Route index element={<Navigate to="home" replace/>}/>
+					<Route path='login' element={<LoginForm/>}/>
+					<Route path='registration' element={<RegistrationForm/>}/>
+					</Route>
 
+					{/* Приватные роуты */}
 					<Route element={<PrivateRoute/>}>
 					<Route path='home' element={<Home/>} exact/>
 					</Route>
 
-					<Route path='login' element={<LoginForm/>}/>
-					<Route path='registration' element={<RegistrationForm/>}/>
+					<Route path='link' element={<LinkTelegram/>}/>
+					<Route path='error' element={<ErrorPage/>}/>
 					<Route path='*' element={<Navigate to="home" replace/>}/>
-				</Route>
 			</Routes>
 		</AuthProvider>
   )

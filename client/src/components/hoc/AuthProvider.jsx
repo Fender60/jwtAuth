@@ -1,4 +1,4 @@
-import {createContext, useState } from 'react';
+import {createContext} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import store from '../../actions/store';
 
@@ -7,8 +7,6 @@ export const AuthContext = createContext(null);
 
 export const AuthProvider = ({children}) => {
 
-	const[auth, setAuth] = useState(false);
-
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -16,7 +14,13 @@ export const AuthProvider = ({children}) => {
 
 	function signin(phone, password) {
 		store.login(phone, password)
-		.then(() => navigate(fromPage, {replace: true}));
+		.then(() => {
+			if(store.servError.error ) {
+				navigate('/error', {replace: true})
+			} else if(!store.servError.login) {
+				navigate(fromPage, {replace: true})
+			}
+		});
 	}
 
 	const signout = () => {
@@ -24,7 +28,18 @@ export const AuthProvider = ({children}) => {
 		.then(() => navigate('/login', {replace: true})) //Перенаправление на страницу входа
 	}
 
-	const value = {auth, signin, signout}
+	const registration = (phone, password) => {
+		store.registration(phone, password)
+		.then(() => {
+			if (store.servError.error) {
+				navigate('/error', {replace: true})
+			} else if(store.isAuth){
+				navigate('/link', {replace: true})
+			}
+		})
+	}
+
+	const value = {signin, signout, registration}
 
 	return <AuthContext.Provider value={value}>
 		{children}

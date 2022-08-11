@@ -1,4 +1,6 @@
 const ReminderModel = require('../models/reminder-model');
+const UserModel = require('../models/user-model');
+const ApiError = require('../exceptions/api-error');
 
 class ReminderService {
 
@@ -24,6 +26,12 @@ class ReminderService {
 	}
 
 	async getReminder(userId) {
+		const user = await UserModel.findOne({_id: userId}); 
+		
+		if(user.isActivated === false){
+			throw ApiError.ForbiddenError();
+		}
+
 		const reminders = await ReminderModel.find({user: userId});
 		return reminders;
 	}

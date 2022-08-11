@@ -7,7 +7,7 @@ class UserController {
 		try {
 			const errors = validationResult(req);
 			if(!errors.isEmpty()){
-				return next(ApiError.BadRequest('Ошибка', errors.array()))
+				return next(ApiError.BadRequest('Длина пароля дожна быть не менее 8 символов', errors.array()))
 			}
 			const {phone, password} = req.body;
 			const userData = await userService.registration(phone, password);

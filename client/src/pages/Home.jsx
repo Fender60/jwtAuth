@@ -39,11 +39,16 @@ const Home = () => {
 			<div className="content">
 				<div className="content__container">
 					<MyButton onClick={logout}>Выйти</MyButton>
-					<MyButton onClick={() => setAddModal(true)}>Добавить напоминание</MyButton>
-					<ReminderModal visible={addModal} setVisible={setAddModal}/>
-					{isLoadingReminder
-					? <h1>Loading...</h1>
-					: <ReminderList reminders={reminders}/>
+					{store.servError.fetch
+					? <div>Аккаунт не активирован. Для активации перейдите по ссылке: <a href='http://t.me/MsgRemBot'>Ссылка для активации</a></div>
+					: <div>
+						<MyButton onClick={() => setAddModal(true)}>Добавить напоминание</MyButton>
+						<ReminderModal visible={addModal} setVisible={setAddModal}/>
+						{isLoadingReminder
+						? <h1>Loading...</h1>
+						: <ReminderList reminders={reminders}/>
+						}
+					</div>
 					}
 				</div>
 			</div>

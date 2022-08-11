@@ -1,12 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom';
-
+import store from '../../actions/store';
 
 
 const PrivateRoute = () => {
-	const auth = localStorage.getItem('token');
 
 	return (
-		auth ? <Outlet/> : <Navigate to="/login"/>
+		store.isAuth ? <Outlet/> : <Navigate to= '/login'/>
 	)
 
 };

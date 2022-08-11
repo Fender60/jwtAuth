@@ -5,7 +5,7 @@ const MyInput = (props) => {
 
     return (
         <div>
-            <input className='input' {...props}/>
+            <input className='form__input' {...props}/>
         </div>
     );
 };

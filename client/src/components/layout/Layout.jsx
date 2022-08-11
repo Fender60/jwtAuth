@@ -5,8 +5,8 @@ const Layout = () => {
 	return (
 		<>
 		<header>
-			<NavLink to="/login">Login</NavLink>
-			<NavLink to="/registration">Registration</NavLink>
+			<NavLink to="/login">Вход</NavLink>
+			<NavLink to="/registration">Регистрация</NavLink>
 		</header>
 
 		<Outlet/>

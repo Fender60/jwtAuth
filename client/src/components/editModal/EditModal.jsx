@@ -4,7 +4,6 @@ import { Context } from '../context/Context';
 import InputDate from '../inputDate/InputDate';
 import InputTime from '../inputTime/InputTime';
 import MyButton from '../myButton/MyButton';
-import MyInput from '../myInput/MyInput';
 import classes from './Modal.module.css';
 
 const EditModal = ({body, visible, setVisible}) => {
@@ -52,7 +51,7 @@ const EditModal = ({body, visible, setVisible}) => {
 						dateFormat="HH:mm"
 						placeholderText="Введите время"
 					/>
-				<MyInput
+				<input className='auth__form-input'
 					value={text}
 					onChange = {e => setText(e.target.value)}
 					type= 'text'

@@ -1,21 +1,26 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, configure} from "mobx";
 import $api, {API_URL} from "../http";
 import axios from "axios";
 
 
 class Store {
 
-    user = {};
-    isAuth = false;
-    isLoading = false;
-    servError = '';
+	user = {};
+	isAuth = localStorage.getItem('token');
+	isLoading = false;
+	servError = {};
+
 
     constructor() {
         makeAutoObservable(this);
+		  configure({
+			enforceActions: "never",
+	  })
     }
 
-    setAuth(bool) {
-        this.isAuth = bool;
+
+    setAuth(token) {
+        this.isAuth = token;
     }
 
     setUser(user) {
@@ -26,7 +31,6 @@ class Store {
         this.isLoading = bool;
     }
 
-	
 
     async login(phone, password) {
         try {
@@ -35,10 +39,13 @@ class Store {
                 password
             });
             localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
+            this.setAuth(localStorage.getItem('token'));
             this.setUser(response.data.user);
+				this.servError = {};
         } catch (e) {
-            this.servError = e.response?.data?.message;
+				e.response?.data?.message 
+				? this.servError.login = e.response?.data?.message
+				: this.servError.error = e;
         }
     }
 
@@ -48,21 +55,24 @@ class Store {
                 {
                     phone, password
                 });
-
             localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
+            this.setAuth(localStorage.getItem('token'));
             this.setUser(response.data.user);
+				this.servError = {};
         }catch (e){
-            this.servError = e.response?.data?.message;
+				e.response?.data?.message 
+				? this.servError.registration = e.response?.data?.message
+				: this.servError.error = e;
         }
     }
 
 	 async fetchReminders() {
 		try {
 			const response = await $api.get('/reminders', {withCredentials: true});
-			return response.data
+			this.servError = {};
+			return response.data;
 		} catch (e) {
-			console.log(e.response?.data?.message);
+			this.servError.fetch = e.response?.data?.message;
 		}
 	}
 
@@ -70,8 +80,9 @@ class Store {
         try {
             const response = await $api.post('/logout');
             localStorage.removeItem('token');
-            this.setAuth(false);
+            this.setAuth('');
             this.setUser({});
+				this.servError = {};
         }catch (e){
             console.log(e.response?.data?.message);
         }
@@ -82,10 +93,11 @@ class Store {
         try {
             const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true});
             localStorage.setItem('token', response.data.accessToken);
-            this.setAuth(true);
+            this.setAuth(localStorage.getItem('token'));
             this.setUser(response.data.user);
+				this.servError = {};
         } catch (e) {
-            console.log(e.response?.data?.message);
+			this.servError.checkAuth = e.response?.data?.message;
         }
         finally {
             this.setLoading(false);
@@ -100,7 +112,7 @@ class Store {
 				 text
 			});
 		} catch (e) {
-			this.servError = e.response?.data?.message;
+			this.servError.add = e.response?.data?.message;
 		} 
 	}
 
@@ -110,7 +122,7 @@ class Store {
 				reminderId
 			});
 		} catch (e) {
-			this.servError = e.response?.data?.message;
+			this.servError.remove = e.response?.data?.message;
 		}
 	}
 
@@ -123,7 +135,7 @@ class Store {
 				id
 			});
 		} catch (e) {
-			this.servError = e.response?.data?.message;
+			this.servError.edit = e.response?.data?.message;
 		}
 	}
 
