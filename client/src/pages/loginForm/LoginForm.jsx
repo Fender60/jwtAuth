@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './LoginForm.scss'
+import '../../static/scss/login_registartion.scss'
 import MyButton from "../../components/myButton/MyButton";
 import store from '../../actions/store';
 import {useAuth} from '../../components/context/useAuth';

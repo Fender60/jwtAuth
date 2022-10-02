@@ -1,0 +1,25 @@
+@import "../../static//scss/sample";
+
+.content {
+	min-height: 100vh;
+	&__container {
+		margin: 10% 0px 0px 0px;
+	}
+}
+.home {
+	&__subtitle {
+		color: #535353;
+		font:bold 25px Helvetica, Arial, sans-serif;
+		letter-spacing: -0.05em;
+		line-height: 35px;
+		padding: 20px 0 0 0;
+		text-align: center;
+		a {
+			color: #fff;
+			&:hover {
+				color: rgb(176, 176, 176);
+				text-decoration: underline;
+			}
+		}
+	}
+}

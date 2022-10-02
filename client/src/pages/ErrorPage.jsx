@@ -3,7 +3,7 @@ import React from 'react';
 const ErrorPage = () => {
 	return (
 		<div>
-			<h1>Ошибка сервера</h1>
+			<h1 style={{fontSize: '30px', textAlign: 'center', color: 'red'}}>ERROR</h1>
 		</div>
 	);
 };

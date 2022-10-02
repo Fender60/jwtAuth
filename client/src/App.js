@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import './App.scss';
+import '../src/static/scss/App.scss';
 import {observer} from "mobx-react-lite";
 import {Routes ,Route, Navigate} from "react-router-dom";
 import LoginForm from "./pages/loginForm/LoginForm";
 import RegistrationForm from "./pages/registrationForm/RegistrationForm";
-import Home from './pages/Home';
+import Home from './pages/home/Home';
 import Layout from './components/layout/Layout';
 import store from './actions/store';
 import PrivateRoute from './components/hoc/PrivateRoute';
@@ -32,10 +32,10 @@ function App() {
 
 					{/* Приватные роуты */}
 					<Route element={<PrivateRoute/>}>
-					<Route path='home' element={<Home/>} exact/>
+						<Route path='home' element={<Home/>} exact/>
+						<Route path='link' element={<LinkTelegram/>}/>
 					</Route>
 
-					<Route path='link' element={<LinkTelegram/>}/>
 					<Route path='error' element={<ErrorPage/>}/>
 					<Route path='*' element={<Navigate to="home" replace/>}/>
 			</Routes>

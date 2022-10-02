@@ -7,8 +7,8 @@ class ReminderController {
 	async addReminder(req, res, next) {
 		try {
 				const {userId} = req.cookies;
-				const {date, time, text} = req.body;
-				const userBody = await reminderService.addReminder(date, time, text, userId);
+				const {date, text} = req.body;
+				const userBody = await reminderService.addReminder(date, text, userId);
 				return res.json(userBody);
 		}
 		catch (e) {
@@ -18,8 +18,8 @@ class ReminderController {
 
 	async editReminder(req, res, next) {
 		try {
-				const {id, date, time, text} = req.body;
-				const reminderBody = await reminderService.editReminder(id, date, time, text);
+				const {id, date, text} = req.body;
+				const reminderBody = await reminderService.editReminder(id, date, text);
 				return res.json(reminderBody);
 		}
 		catch (e) {

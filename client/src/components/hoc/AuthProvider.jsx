@@ -17,7 +17,8 @@ export const AuthProvider = ({children}) => {
 		.then(() => {
 			if(store.servError.error ) {
 				navigate('/error', {replace: true})
-			} else if(!store.servError.login) {
+			} else 
+			if(!store.servError.login) {
 				navigate(fromPage, {replace: true})
 			}
 		});

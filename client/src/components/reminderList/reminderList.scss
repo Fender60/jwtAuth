@@ -1,0 +1,38 @@
+.content {
+	background: url(../../static/images/home/01.jpg) 100%/100% 100% no-repeat;
+}
+.reminders {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 10px;
+	min-height: 100vh;
+
+	@media(max-width: 768px) {
+		display: block;
+	}
+
+	&__list {
+		flex: 0 1 60%;
+
+		h1 {
+			font-size: 35px;
+			@media(max-width: 768px) {
+				font-size: 30px;
+			}
+		}
+	}
+	&__date {
+		@media(max-width: 768px) {
+			display: none;
+		}
+	}
+
+	&__date-mobile {
+		display: none;
+		text-align: center;
+		padding: 40px 0px 0px 0px;
+		@media(max-width: 768px) {
+			display: block;
+		}
+	}
+}

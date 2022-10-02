@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import { Controller, useForm } from "react-hook-form";
 import MyButton from "../../components/myButton/MyButton";
 import store from '../../actions/store';
-import styles from'./RegistrationForm.module.css';
 import NumberFormat from "react-number-format";
 import { useAuth } from '../../components/context/useAuth';
 import {observer} from 'mobx-react-lite';
+import '../../static/scss/login_registartion.scss'
 
 const Registration = () => {
 

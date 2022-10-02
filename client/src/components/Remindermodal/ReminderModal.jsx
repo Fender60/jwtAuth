@@ -1,18 +1,14 @@
+import { FormControl, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { useEffect } from 'react';
 import store from '../../actions/store';
 import { Context } from '../context/Context';
-import InputDate from '../inputDate/InputDate';
-import InputTime from '../inputTime/InputTime';
 import MyButton from '../myButton/MyButton';
-import MyInput from '../myInput/MyInput';
 import classes from './Modal.module.css';
 
 const ReminderModal = ({visible, setVisible}) => {
 
 	const rootClass = [classes.modal];
-	const [date, setDate] = useState(null);
-	const [time, setTime] = useState(null);
+	const [date, setDate] = useState('');
 	const [text, setText] = useState('');
 
 	const {reminders, setReminders} = useContext(Context);
@@ -20,18 +16,14 @@ const ReminderModal = ({visible, setVisible}) => {
 
 	const newReminder = (e) => {
 		e.preventDefault();
-		store.addReminder(date, time, text)
+		store.addReminder(date, text)
 		.then(() => store.fetchReminders()
 		.then((value) => setReminders(value)));
-		setDate(null);
-		setTime(null);
+		setDate('');
 		setText('');
 		setVisible(false);
 	}
 
-useEffect(() => {
-
-}, [reminders])
 
 	if(visible){
 		rootClass.push(classes.active);
@@ -41,32 +33,33 @@ useEffect(() => {
 		<div className={rootClass.join(' ')}
 			onClick = {() => setVisible(false)}>
 			<div className={classes.content} onClick = {(e) => e.stopPropagation()}>
-			<h2>Новое напоминание</h2>
+			<div className={classes.title}>Новое напоминание</div>
 			<form>
-				<div className={classes.date_time}>
-					<InputDate
-						selected={date}
-						onChange={(date) => setDate(date)} 
-						dateFormat="dd.MM.yyyy"
-						placeholderText="Выберите дату"
-						locale="ru"
-					/>
-					<InputTime
-						selected={time}
-						onChange={(time) => setTime(time)}
-						showTimeInput
-						showTimeSelectOnly
-						timeInputLabel="Время:"
-						dateFormat="HH:mm"
-						placeholderText="Введите время"
+				<div className={classes.date}>
+					<TextField 
+						id="datetime-local"
+						label="Дата, время"
+						type="datetime-local"
+						className={classes.textField}
+						value={date}
+						onChange = {e => setDate(e.target.value)}
+						InputLabelProps={{
+							shrink: true,
+						}}
 					/>
 				</div>
-				<input className='auth__form-input'
+				<FormControl fullWidth>
+				<TextField
+					id="outlined-textarea"
+					label="Текст напоминания"
+					placeholder="Текст напоминания"
+					multiline
+					rows={4}
 					value={text}
 					onChange = {e => setText(e.target.value)}
-					type= 'TextArea'
-					placeholder= 'Текст напоминания'
 				/>
+				</FormControl>
+
 				<MyButton onClick={newReminder}>Создать напоминание</MyButton>
 			</form>
 			</div>

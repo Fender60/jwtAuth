@@ -6,6 +6,7 @@
 	left: 0;
 	display: none;
 	background: rgba(0, 0, 0, 0.5);
+	z-index: 10000;
 }
 
 .content {
@@ -22,7 +23,10 @@
 	align-items: center;
 }
 
-.date_time {
-	display: flex;
-	gap: 10px;
+.title {
+	font-size: 25px;
+}
+
+.date {
+	margin: 20px 0 20px 0;
 }

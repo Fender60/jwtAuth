@@ -44,7 +44,7 @@ async function searchReminders() {
 		if(rezult > 86400000){
 			editStatus(element._id, 'no done');
 		} else if(rezult < 86400000 && rezult > 0) {
-			const timeDb = new Date(element.time);
+			const timeDb = new Date(element.date);
 
 			if(timeDb.getHours() == dateNow.getHours() && timeDb.getMinutes() == dateNow.getMinutes()) {
 					searchAndSendMessage(element.user, element.text);

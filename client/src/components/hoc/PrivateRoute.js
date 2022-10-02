@@ -3,7 +3,6 @@ import store from '../../actions/store';
 
 
 const PrivateRoute = () => {
-
 	return (
 		store.isAuth ? <Outlet/> : <Navigate to= '/login'/>
 	)

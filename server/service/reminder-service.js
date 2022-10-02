@@ -4,16 +4,15 @@ const ApiError = require('../exceptions/api-error');
 
 class ReminderService {
 
-	async addReminder(date, time, text, userId) {
-		const reminder = await ReminderModel.create({user: userId, date: date, time: time, text: text});
+	async addReminder(date, text, userId) {
+		const reminder = await ReminderModel.create({user: userId, date: date, text: text});
 		return reminder;
 	}
 
-	async editReminder(reminderId, date, time, text) {
+	async editReminder(reminderId, date, text) {
 		const reminder = await ReminderModel.findOne({_id: reminderId});
 		if(reminder) {
 			reminder.date = date;
-			reminder.time = time;
 			reminder.text = text;
 			return reminder.save();
 		}
