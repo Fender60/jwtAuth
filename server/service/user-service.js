@@ -64,6 +64,21 @@ class UserService {
 		return users;
 	}
 
+	async reset(phone, password) {
+		const user = await UserModel.findOne({phone});
+		if(!user){
+			throw ApiError.BadRequest(`Такой пользователь не существует`);
+		}
+		const hashPassword = await bcrypt.hash(password, 3);
+		user.password = hashPassword;
+		await user.save();
+		
+		const userDto = new UserDto(user);
+		const tokens = tokenService.generateTokens({...userDto});
+
+		await tokenService.saveToken(userDto.id, tokens.refreshToken);
+		return {...tokens, user: userDto}
+	}
 
 
 }

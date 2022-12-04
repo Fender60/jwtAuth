@@ -67,6 +67,25 @@ class Store {
 		}
 	}
 
+	async resetPassword(phone, password) {
+		try {
+			const response = await $api.patch('/resetpassword',
+			{
+				phone, password
+			});
+
+			localStorage.setItem('token', response.data.accessToken);
+			this.setAuth(localStorage.getItem('token'));
+			this.setUser(response.data.user);
+			this.servError = {};
+		} 
+		catch (e) {
+			e.response?.data?.message 
+			? this.servError.reset = e.response?.data?.message
+			: this.servError.error = e;
+		}
+	}
+
 	async fetchReminders() {
 	try {
 		const response = await $api.get('/reminders', {withCredentials: true});

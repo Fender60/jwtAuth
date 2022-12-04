@@ -11,6 +11,7 @@ router.post('/registration',
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
+router.patch('/resetpassword', userController.resetPassword);
 router.get('/users', authMiddlaware, userController.getUsers);
 router.post('/add', reminderController.addReminder);
 router.post('/delete', reminderController.deleteReminder);

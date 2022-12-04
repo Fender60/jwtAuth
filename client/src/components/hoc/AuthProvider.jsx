@@ -40,7 +40,18 @@ export const AuthProvider = ({children}) => {
 		})
 	}
 
-	const value = {signin, signout, registration}
+	const resetPassword = (phone, password) => {
+		store.resetPassword(phone, password)
+		.then(() => {
+			if (store.servError.error) {
+				navigate('/error', {replace: true})
+			} else if(store.isAuth){
+				navigate('/home', {replace: true})
+			}
+		})
+	}
+
+	const value = {signin, signout, registration, resetPassword}
 
 	return <AuthContext.Provider value={value}>
 		{children}

@@ -11,6 +11,7 @@ import PrivateRoute from './components/hoc/PrivateRoute';
 import {AuthProvider} from './components/hoc/AuthProvider';
 import LinkTelegram from './pages/linkTelegram/LinkTelegram';
 import ErrorPage from './pages/ErrorPage';
+import ResetPassword from './pages/resetPassword/ResetPassword';
 
 function App() {
 
@@ -35,6 +36,8 @@ function App() {
 						<Route path='home' element={<Home/>} exact/>
 						<Route path='link' element={<LinkTelegram/>}/>
 					</Route>
+
+					<Route path='resetpassword/:phone' element={<ResetPassword/>}/>
 
 					<Route path='error' element={<ErrorPage/>}/>
 					<Route path='*' element={<Navigate to="home" replace/>}/>
