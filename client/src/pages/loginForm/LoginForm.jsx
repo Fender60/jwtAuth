@@ -97,6 +97,7 @@ const LoginForm = () => {
 							</div>
 							<MyButton>Вход</MyButton>
 						</form>
+						<a className='auth__reset_password' href="#">Забыли пароль?</a>
 					</div>
 				</div>
 

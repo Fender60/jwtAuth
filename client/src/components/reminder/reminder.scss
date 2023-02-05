@@ -4,6 +4,14 @@
 	background-color: #ffffffad;
 	border-radius: 30px;
 
+	&__done {
+		background-color: #5efa6dad;
+	}
+
+	&__noDone {
+		background-color: #ff7373ad;
+	}
+
 	&__container {
 		display: flex;
 		justify-content: space-between;

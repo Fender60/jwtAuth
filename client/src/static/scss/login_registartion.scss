@@ -25,7 +25,7 @@
     box-shadow: 0 1px 0 #fff inset;
     border: 1px solid #c4c6ca;
     margin: 0 auto;
-    padding: 25px 0 80px 0;
+    padding: 25px 0 60px 0;
     position: relative;
     text-align: center;
     text-shadow: 0 1px 0 #fff;
@@ -104,7 +104,7 @@
   }
 
 	&__form{
-
+		margin: 0 0 20px 0;
 		&-input {
 			-webkit-border-radius: 30px;
 			-moz-border-radius: 30px;
@@ -181,5 +181,16 @@
 		}
 	}
 
+	&__reset_password{
+		font: 16px Helvetica, Arial, sans-serif;
+		color: #4572f0
+	}
+	a:hover {
+		color: #909399;
+		text-decoration: underline;
+	}
+	a:active {
+		color: rgb(205, 198, 198);
+	}
 
 }

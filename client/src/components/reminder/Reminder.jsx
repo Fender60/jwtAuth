@@ -7,6 +7,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import AlarmIcon from '@mui/icons-material/Alarm';
+import DoneOutlineTwoToneIcon from '@mui/icons-material/DoneOutlineTwoTone';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import './reminder.scss';
 
 
@@ -19,6 +21,25 @@ const Reminder = (props) => {
 	const date = new Date(props.reminder.date).toLocaleDateString();
 	const time = new Date(props.reminder.date).toLocaleTimeString();
 
+	const reminderText = (status) => {
+		if(status === 'done'){
+			return <div className='reminder__text'>
+					<DoneOutlineTwoToneIcon
+						sx = {{color: 'green'}}
+					/> {props.reminder.text}
+				</div>
+		}else if(status === 'noDone') {
+			return <div className='reminder__text'>
+						<CancelOutlinedIcon
+							sx = {{color: 'red'}}
+						/> {props.reminder.text}
+					</div>
+		}else {
+			return <div className='reminder__text'>{props.reminder.text}</div>
+		}
+
+	}
+
 	const remove = () => {
 		store.removeReminder(props.reminder)
 		.then(() => store.fetchReminders()
@@ -26,7 +47,7 @@ const Reminder = (props) => {
 	}
 
 	return (
-		<div className='reminder'>
+		<div className={`reminder reminder__${props.reminder.status}`}>
 			<EditModal 
 			visible={editModal} 
 			setVisible={setEditModal}
@@ -40,7 +61,7 @@ const Reminder = (props) => {
 						<AlarmIcon/>
 						<div className='reminder__data'>{time}</div>
 					</div>
-					<div className='reminder__text'>{props.reminder.text}</div>
+					{reminderText(props.reminder.status)}
 				</div>
 				<div className="reminder__button">
 					<Tooltip title="Редактировать">

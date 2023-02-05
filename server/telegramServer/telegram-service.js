@@ -21,27 +21,11 @@ const startBd = async () => {
 };
 startBd();
 
+
 //Отправка сообщения в телеграм
-async function searchAndSendMessage(id, text) {
-	const user = await UserModel.findOne({_id: id});
-	return bot.sendMessage(user.telegramId, text, {
-		reply_markup: {
-				inline_keyboard: [
-					[
-					{
-						text: '',
-						callback_data: ''
-					}
-				],
-				[
-					{
-						text: '',
-						callback_data: ''
-					}
-				]
-			]
-		}
-	});
+async function searchAndSendMessage(userId, text) {
+	const user = await UserModel.findOne({_id: userId});
+	return bot.sendMessage(user.telegramId, `✔${text}`);
 }
 
 async function editStatus(id, status) {
@@ -60,7 +44,7 @@ async function searchReminders() {
 		const dateDb = new Date(element.date).getTime();
 		const rezult = dateNow.getTime()-dateDb; 
 		if(rezult > 86400000){
-			editStatus(element._id, 'no done');
+			editStatus(element._id, 'noDone');
 		} else if(rezult < 86400000 && rezult > 0) {
 			const timeDb = new Date(element.date);
 
@@ -68,7 +52,7 @@ async function searchReminders() {
 					searchAndSendMessage(element.user, element.text);
 					editStatus(element._id, 'done');
 			} else if(timeDb.getHours() < dateNow.getHours() || timeDb.getMinutes() < dateNow.getMinutes()) {
-				editStatus(element._id, 'no done');
+				editStatus(element._id, 'noDone');
 			}
 		}
 	});
@@ -109,18 +93,16 @@ const start = () => {
 				reply_markup: {
 					inline_keyboard: [
 						[
-						{
-							text: 'Да',
-							callback_data: 'resetPassword'
-						}
+							{
+								text: 'Да',
+								callback_data: 'resetPassword'
+							},
+							{
+								text: 'Нет',
+								callback_data: 'noReset'
+							}
+						]
 					],
-					[
-						{
-							text: 'Нет',
-							callback_data: 'noReset'
-						}
-					]
-				]
 				}
 			});
 		}
