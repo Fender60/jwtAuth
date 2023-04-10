@@ -24,15 +24,21 @@ class ReminderService {
 		return;
 	}
 
-	async getReminder(userId) {
-		const user = await UserModel.findOne({_id: userId}); 
+	async getReminder(userId, page, limit) {
+		const user = await UserModel.findOne({_id: userId});
+
+		const startIndex = (page - 1) * limit;
+		const endIndex = page * limit;
 		
 		if(user.isActivated === false){
 			throw ApiError.ForbiddenError();
 		}
 
 		const reminders = await ReminderModel.find({user: userId});
-		return reminders;
+		const sortReminders = reminders.sort((a, b) => a.date - b.date)
+		const limitReminders = sortReminders.slice(startIndex, endIndex);
+
+		return {limitReminders: limitReminders, totalCount: reminders.length};
 	}
 }
 

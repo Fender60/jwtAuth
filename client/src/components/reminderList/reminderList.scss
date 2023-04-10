@@ -36,3 +36,22 @@
 		}
 	}
 }
+
+.button__sort { 
+	font-family: "Roboto","Helvetica","Arial",sans-serif;
+	font-size: 17px;
+	display: flex;
+	align-items: center;
+	color: #000;
+	background: none;
+		&-icon{
+			&__ascending {
+				transform: rotate(180deg);
+		}
+			&__descending {
+			}
+		}
+		&:hover {
+			text-decoration: underline;
+		}
+	}

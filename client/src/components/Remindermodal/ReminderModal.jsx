@@ -11,16 +11,16 @@ const ReminderModal = ({visible, setVisible}) => {
 	const [date, setDate] = useState('');
 	const [text, setText] = useState('');
 
-	const {reminders, setReminders} = useContext(Context);
-	
+	const {setReminders, limit, setPage} = useContext(Context);
 
 	const newReminder = (e) => {
 		e.preventDefault();
 		store.addReminder(date, text)
-		.then(() => store.fetchReminders()
+		.then(() => store.fetchReminders(1, limit)
 		.then((value) => setReminders(value)));
 		setDate('');
 		setText('');
+		setPage(1);
 		setVisible(false);
 	}
 

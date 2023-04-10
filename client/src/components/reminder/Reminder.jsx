@@ -16,11 +16,12 @@ const Reminder = (props) => {
 
 	const [editModal, setEditModal] = useState(false);
 
-	const {reminders, setReminders} = useContext(Context);
+	const {reminders ,setReminders, page, setPage, limit} = useContext(Context);
 
 	const date = new Date(props.reminder.date).toLocaleDateString();
 	const time = new Date(props.reminder.date).toLocaleTimeString();
 
+	//Применение стилей в зависимости от статуса напоминания
 	const reminderText = (status) => {
 		if(status === 'done'){
 			return <div className='reminder__text'>
@@ -37,13 +38,11 @@ const Reminder = (props) => {
 		}else {
 			return <div className='reminder__text'>{props.reminder.text}</div>
 		}
-
 	}
 
-	const remove = () => {
-		store.removeReminder(props.reminder)
-		.then(() => store.fetchReminders()
-		.then((value) => setReminders(value)));
+	const remove = (reminder) => {
+		store.removeReminder(reminder)
+		setReminders(reminders.filter(r => r._id !== reminder._id))
 	}
 
 	return (
@@ -71,13 +70,12 @@ const Reminder = (props) => {
 					</Tooltip>
 
 					<Tooltip title="Удалить">
-						<IconButton aria-label="delete" size="small" onClick={remove}>
+						<IconButton aria-label="delete" size="small" onClick={() => remove(props.reminder)}>
 							<DeleteIcon fontSize="small" />
 						</IconButton>
 					</Tooltip>
 				</div>
 			</div>
-			<hr style={{margin: '15px 0'}}/>
 		</div>
 	);
 };

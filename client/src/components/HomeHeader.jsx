@@ -52,7 +52,7 @@ const HomeHeader = (props) => {
 						backgroundColor: '#9cb6ad',
 						}}
 						>
-						LOGO
+							REMIND ME
 						</Typography>
 						<Button 
 						variant="text"
@@ -66,7 +66,6 @@ const HomeHeader = (props) => {
 					</Toolbar>
 				</AppBar>
 			</HideOnScroll>
-			
 		</>
 	);
 };

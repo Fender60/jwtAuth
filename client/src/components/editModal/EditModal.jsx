@@ -12,14 +12,14 @@ const EditModal = ({body, visible, setVisible}) => {
 	const [date, setDate] = useState('');
 	const [text, setText] = useState(body.text);
 
-	const {reminders, setReminders} = useContext(Context);
+	const {sortOption, sortReminders} = useContext(Context);
 
 
 	const editSaveReminder = (e) => {
 		e.preventDefault();
 		store.editReminder(date, text, body._id)
 		.then(() => store.fetchReminders()
-		.then((value) => setReminders(value)));
+		.then((value) => sortReminders(value, sortOption)));
 		setVisible(false);
 	}
 

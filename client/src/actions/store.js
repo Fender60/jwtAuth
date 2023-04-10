@@ -9,6 +9,7 @@ class Store {
 	isAuth = localStorage.getItem('token');
 	isLoading = false;
 	servError = {};
+	totalCount;
 
 
 	constructor() {
@@ -29,6 +30,10 @@ class Store {
 
 	setLoading(bool) {
 		this.isLoading = bool;
+	}
+
+	setTotalCount(count) {
+		this.totalCount = count;
 	}
 
 
@@ -86,10 +91,17 @@ class Store {
 		}
 	}
 
-	async fetchReminders() {
+	async fetchReminders(page, limit) {
 	try {
-		const response = await $api.get('/reminders', {withCredentials: true});
+		const response = await $api.get('/reminders', {
+			withCredentials: true,
+			params: {
+				limit: limit,
+				page: page
+			}
+		});
 		this.servError = {};
+		this.setTotalCount(response.headers['x-total-count']);
 		return response.data;
 	} catch (e) {
 		this.servError.fetch = e.response?.data?.message;
@@ -131,9 +143,9 @@ class Store {
 		try {
 			const response = await $api.post('/add', {
 					date,
-					//time,
 					text
 			});
+			return response.data;
 		} catch (e) {
 			this.servError.add = e.response?.data?.message;
 		} 

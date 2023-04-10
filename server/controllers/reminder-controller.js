@@ -42,8 +42,11 @@ class ReminderController {
 	async allReminders(req, res, next) {
 		try {
 				const {userId} = req.cookies;
-				const reminders = await reminderService.getReminder(userId);
-				return res.json(reminders);
+				const {page, limit} = req.query;
+				const reminders = await reminderService.getReminder(userId, page, limit);
+				res.set('Access-Control-Expose-Headers', 'X-Total-Count')
+				res.set('X-Total-Count', reminders.totalCount);
+				return res.json(reminders.limitReminders);
 		}
 		catch (e) {
 				next(e);
