@@ -20,7 +20,7 @@ const LoginForm = () => {
 		mode: "onBlur",
 	});
 
-	const {signin, auth} = useAuth();
+	const {signin} = useAuth();
 
 	const login = () => {
 		let editPhone = '38' + phone;

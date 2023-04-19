@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../static/scss/login_registartion.scss';
 import classes from './Link.module.css';
+import MyButton from '../../components/myButton/MyButton';
 
 
 const LinkTelegram = () => {
@@ -14,6 +15,7 @@ const LinkTelegram = () => {
 								Перейдите по ссылке ниже для подтверждения номера телефона
 							</div>
 							<div className={classes.link}><a href='http://t.me/MsgRemBot'>http://t.me/MsgRemBot</a></div>
+							<a href='http://localhost:3000/home'><MyButton>Главная страница</MyButton></a>
 					</div>
 				</div>
 

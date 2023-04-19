@@ -35,7 +35,9 @@ const Home = () => {
 	setIsLoadingReminder(true);
 	let response = store.fetchReminders(page, limit);
 	response.then((value) =>{ 
-		setReminders([...reminders, ...value]);
+		if(value) {
+			setReminders([...reminders, ...value])
+		}
 		setTotalCount(store.totalCount);
 	})
 	.then(() =>setIsLoadingReminder(false))

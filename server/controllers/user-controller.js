@@ -12,6 +12,7 @@ class UserController {
 			const {phone, password} = req.body;
 			const userData = await userService.registration(phone, password);
 			res.cookie('refreshToken', userData.refreshToken, {maxAge: 30*24*60*60*1000, httpOnly: true});
+			res.cookie('userId', userData.user.id, {maxAge: 30*24*60*60*1000, httpOnly: true});
 			res.json({message: 'Cсылка для подтверждения: http://t.me/MsgRemBot'});
 			return res.json(userData);
 		}

@@ -27,12 +27,12 @@ class ReminderService {
 	async getReminder(userId, page, limit) {
 		const user = await UserModel.findOne({_id: userId});
 
-		const startIndex = (page - 1) * limit;
-		const endIndex = page * limit;
-		
 		if(user.isActivated === false){
 			throw ApiError.ForbiddenError();
 		}
+
+		const startIndex = (page - 1) * limit;
+		const endIndex = page * limit;
 
 		const reminders = await ReminderModel.find({user: userId});
 		const sortReminders = reminders.sort((a, b) => a.date - b.date)
