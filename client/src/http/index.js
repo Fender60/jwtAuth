@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = `http://localhost:5000/api`;
+export const API_URL = `https://jwtauth-6g76.onrender.com`;
 
 const $api = axios.create({
 	withCredentials: true,

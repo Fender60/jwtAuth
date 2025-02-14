@@ -27,7 +27,7 @@ function App() {
 		<AuthProvider>
 			<Routes>
 				<Route path='/' element={<Layout/>}>
-					<Route index element={<Navigate to="home" replace/>}/>
+					<Route index element={<Navigate to="/home" replace/>}/>
 					<Route path='login' element={<LoginForm/>}/>
 					<Route path='registration' element={<RegistrationForm/>}/>
 					</Route>
@@ -42,7 +42,7 @@ function App() {
 					<Route path='resetpassword' element={<ResetLink/>}/>
 
 					<Route path='error' element={<ErrorPage/>}/>
-					<Route path='*' element={<Navigate to="home" replace/>}/>
+					<Route path='*' element={<Navigate to="/home" replace/>}/>
 			</Routes>
 		</AuthProvider>
   )
