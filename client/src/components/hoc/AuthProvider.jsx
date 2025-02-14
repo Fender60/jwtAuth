@@ -26,7 +26,7 @@ export const AuthProvider = ({children}) => {
 
 	const signout = () => {
 		store.logout()
-		.then(() => navigate('/login', {replace: true})) //Перенаправление на страницу входа
+		.then(() => navigate('/login', {replace: true})) //Redirection to the entrance page
 	}
 
 	const registration = (phone, password) => {

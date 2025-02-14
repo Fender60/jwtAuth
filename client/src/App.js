@@ -32,7 +32,7 @@ function App() {
 					<Route path='registration' element={<RegistrationForm/>}/>
 					</Route>
 
-					{/* Приватные роуты */}
+					{/* Private routers */}
 					<Route element={<PrivateRoute/>}>
 						<Route path='home' element={<Home/>} exact/>
 						<Route path='link' element={<LinkTelegram/>}/>

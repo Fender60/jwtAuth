@@ -61,7 +61,7 @@ const HomeHeader = (props) => {
 						color="inherit"
 						onClick={signout}
 						>
-						Выход
+						LogOut
 						</Button>
 					</Toolbar>
 				</AppBar>

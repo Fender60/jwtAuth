@@ -9,8 +9,8 @@ const Layout = () => {
 		<header className='header__login'>
 			<div className="header__login__logo"></div>
 			<div className="header__login__link">
-				<NavLink to="/login">Вход</NavLink>
-				<NavLink to="/registration">Регистрация</NavLink>
+				<NavLink to="/login">Login</NavLink>
+				<NavLink to="/registration">Registration</NavLink>
 			</div>
 		</header>
 

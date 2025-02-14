@@ -10,12 +10,12 @@ const LinkTelegram = () => {
 			<div className='auth'>
 				<div className="auth__container">
 					<div className="auth__content">
-						<div className="auth__title">Регистрация</div>
+						<div className="auth__title">Registration</div>
 							<div className={classes.text}>
-								Перейдите по ссылке ниже для подтверждения номера телефона
+								Follow the link below to confirm the phone number and complete the registration
 							</div>
 							<div className={classes.link}><a href='http://t.me/MsgRemBot'>http://t.me/MsgRemBot</a></div>
-							<a href='http://localhost:3000/home'><MyButton>Главная страница</MyButton></a>
+							<a href='http://localhost:3000/home'><MyButton>Home</MyButton></a>
 					</div>
 				</div>
 

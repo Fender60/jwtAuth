@@ -168,6 +168,7 @@ class Store {
 				text,
 				id
 			});
+			return response.data;
 		} catch (e) {
 			this.servError.edit = e.response?.data?.message;
 		}

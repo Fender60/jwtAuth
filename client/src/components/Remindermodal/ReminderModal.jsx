@@ -33,26 +33,27 @@ const ReminderModal = ({visible, setVisible}) => {
 		<div className={rootClass.join(' ')}
 			onClick = {() => setVisible(false)}>
 			<div className={classes.content} onClick = {(e) => e.stopPropagation()}>
-			<div className={classes.title}>Новое напоминание</div>
+			<div className={classes.title}>New reminder</div>
 			<form>
 				<div className={classes.date}>
 					<TextField 
 						id="datetime-local"
-						label="Дата, время"
+						label="Date, time"
 						type="datetime-local"
 						className={classes.textField}
 						value={date}
 						onChange = {e => setDate(e.target.value)}
-						InputLabelProps={{
-							shrink: true,
+						slotProps = {{
+							inputLabel: {
+								shrink: true,
+							}
 						}}
 					/>
 				</div>
 				<FormControl fullWidth>
 				<TextField
 					id="outlined-textarea"
-					label="Текст напоминания"
-					placeholder="Текст напоминания"
+					label="Your text"
 					multiline
 					rows={4}
 					value={text}
@@ -60,7 +61,7 @@ const ReminderModal = ({visible, setVisible}) => {
 				/>
 				</FormControl>
 
-				<MyButton onClick={newReminder}>Создать напоминание</MyButton>
+				<MyButton onClick={newReminder}>Create reminder</MyButton>
 			</form>
 			</div>
 		</div>

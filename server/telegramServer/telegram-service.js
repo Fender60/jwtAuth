@@ -2,15 +2,16 @@ const TelegramApi = require('node-telegram-bot-api');
 const UserModel = require('../models/user-model');
 const ReminderModel = require('../models/reminder-model');
 const mongoose = require('mongoose');
-const { query } = require('express');
 
 const token = '5027906155:AAHlRO-PAFLi_7c1gFlPQzCBrP4mtDw0Hpg';
 
 const bot = new TelegramApi(token, {polling: true});
 
+mongoose.set('strictQuery', true);
+
 const startBd = async () => {
 	try {
-		await mongoose.connect('mongodb+srv://root:root@cluster0.hisaa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+		await mongoose.connect('mongodb+srv://root:root@cluster0.hisaa.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&appName=Cluster0', {
 			useNewUrlParser: true,
 			useUnifiedTopology: true
 		})
@@ -22,7 +23,7 @@ const startBd = async () => {
 startBd();
 
 
-//Отправка сообщения в телеграм
+//Sending messages to telegrams
 async function searchAndSendMessage(userId, text) {
 	const user = await UserModel.findOne({_id: userId});
 	return bot.sendMessage(user.telegramId, `✔${text}`);
@@ -36,7 +37,7 @@ async function editStatus(id, status) {
 	await reminder.save();
 }
 
-//Поиск напоминаний для выполнения
+//Search for reminders for execution
 async function searchReminders() {
 	const dateNow = new Date();
 	const reminders = await ReminderModel.find();
@@ -64,8 +65,8 @@ new CronJob('00 * * * * *', () => {searchReminders()}, null, true);
 
 const start = () => {
 	bot.setMyCommands([
-		{command: '/start', description: 'Старт'},
-		{command: '/reset', description: 'Сброс пароля для входа в личный кабинет'},
+		{command: '/start', description: 'Start'},
+		{command: '/reset', description: 'Password reset'},
 	]);
 
 	bot.on('message', async msg => {
@@ -74,31 +75,31 @@ const start = () => {
 		if(text === '/start'){
 			const candidate = await UserModel.findOne({telegramId: chatId});
 			if(candidate){
-				return bot.sendMessage(chatId, `Вы уже зарегистрированы`)
+				return bot.sendMessage(chatId, `You are already registered`)
 			}else{
-				return bot.sendMessage(chatId, `Для подтверждения регистрации поделитесь свои номером телефона`, {
+				return bot.sendMessage(chatId, `To confirm registration, share your phone number`, {
 					"reply_markup": {
 						"one_time_keyboard": true,
 							"keyboard": [[{
-								text: "Поделиться номером телефона",
+								text: "Share the phone number",
 									request_contact: true
-							}], ["Отмена"]]
+							}], ["Cancel"]]
 					}
 				});
 			}
 		}
 
 		if(text === '/reset'){ 
-			bot.sendMessage(chatId, 'Вы уверены, что хотите выполнить сброс пароля?', {
+			bot.sendMessage(chatId, 'Are you sure you want to dump your password?', {
 				reply_markup: {
 					inline_keyboard: [
 						[
 							{
-								text: 'Да',
+								text: 'Yes',
 								callback_data: 'resetPassword'
 							},
 							{
-								text: 'Нет',
+								text: 'No',
 								callback_data: 'noReset'
 							}
 						]
@@ -108,20 +109,20 @@ const start = () => {
 		}
 	});
 
-	//Сброс пароля
+	//Password reset
 	bot.on('callback_query', async query => {
 		if(query.data==='resetPassword') {
 			const user = await UserModel.findOne({telegramId: query.message.chat.id});
 			if(!user) {
-				bot.sendMessage(query.message.chat.id, 'Вы не зарегестрированы, пройдите регистрацию на сайте для продолжения');
+				bot.sendMessage(query.message.chat.id, 'You are not registered, pass the registration on the site to continue');
 			} else {
 				const url = `http://localhost:3000/resetpassword/${user.phone}`;
-				bot.sendMessage(query.message.chat.id, 'Для сброса пароля перейдите по ссылке ниже',{
+				bot.sendMessage(query.message.chat.id, 'To reset the password, follow the link below',{
 					reply_markup: {
 						inline_keyboard: [
 							[
 							{
-								text: 'Ссылка',
+								text: 'Link',
 								url: url
 							}
 						],
@@ -131,25 +132,25 @@ const start = () => {
 			}
 		}
 		if(query.data==='noReset') {
-			bot.sendMessage(query.message.chat.id, 'Сброс пароля не выполнен')
+			bot.sendMessage(query.message.chat.id, 'Password reset is not completed')
 		}
 	});
 
-	//Подтверждение регистрации
+	//Confirmation of registration
 	bot.on('contact', async msg => {
 		const chatId = msg.chat.id;
 		const phone = msg.contact.phone_number;
 		const candidate = await UserModel.findOne({phone});
 		
 		if(!candidate){
-			await bot.sendMessage(chatId, `Такого пользователя не существует. Пройдите, пожалуйста, регистрацию на сайте`);
+			await bot.sendMessage(chatId, `Such a user does not exist. Please take registration on the site`);
 		}
 		else {
 			candidate.telegramId = chatId;
 			candidate.isActivated = true;
 			await candidate.save();
 
-			bot.sendMessage(chatId, `Спасибо за регистрацию`);
+			bot.sendMessage(chatId, `Thanks for the registration`);
 		}
 	})
 

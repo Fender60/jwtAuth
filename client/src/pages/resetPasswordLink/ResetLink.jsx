@@ -9,11 +9,11 @@ const ResetLink = () => {
 			<div className='auth'>
 				<div className="auth__container">
 					<div className="auth__content">
-						<div className="auth__title">Сброс пароля</div>
+						<div className="auth__title">Password reset</div>
 							<div className={classes.text}>
-								Для сброса пароля перейдите в телеграмм бот и выберите в разделе меню сброс пароля
+								To reset the password, go to the telegram bot and select password reset in the menu section
 							</div>
-							<div className={classes.link}><a href='http://t.me/MsgRemBot'>http://t.me/MsgRemBot</a></div>
+							<div className={classes.link}><a href='http://t.me/MsgRemBot'>Link</a></div>
 					</div>
 				</div>
 

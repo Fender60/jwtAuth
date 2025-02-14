@@ -23,7 +23,7 @@ const ResetPassword = () => {
 
 	const sendData = () => {
 		password !== repeatPassword
-		? setError('repeatPassword', { type: 'custom', message: 'Пароль не совпадает' })
+		? setError('repeatPassword', { type: 'custom', message: 'The password does not match' })
 		: resetPassword(phone, password);
 	}
 
@@ -31,37 +31,37 @@ const ResetPassword = () => {
 			<div className='auth'>
 				<div className="auth__container">
 					<div className="auth__content">
-						<div className="auth__title">Сброс пароля</div>
+						<div className="auth__title">Password reset</div>
 
 						<div style={{color: 'red'}}>{store.servError.reset}</div>
 
 						<form className="auth__form" onSubmit={handleSubmit(sendData)}>
 							<div className='auth__form-item'>
-								<label className='auth__form-label'>Новый пароль
+								<label className='auth__form-label'>New Password
 								<input className='auth__form-input'
 								{...register('password', {
 									minLength: 8,
-									required: 'Поле обязательно для заполнения'
+									required: 'The field is required'
 								})}
 									value={password} 
 									onChange = {(e) => setPassword(e.target.value)} 
 									type= {isChecked ? 'text' : 'password'} 
-									placeholder='Введите пароль'
+									placeholder='Enter new password'
 									autoComplete="new-password"
 								/>
 								</label>
-								<div className='auth__form-error'>{errors?.password && <p>{errors?.password?.message || 'Пароль должен быть не менее 8 символов'}</p>}</div>
+								<div className='auth__form-error'>{errors?.password && <p>{errors?.password?.message || 'The password should be at least 8 characters'}</p>}</div>
 							</div>
 							<div className='auth__form-item'>
-								<label className='auth__form-label'>Введите пароль еще раз
+								<label className='auth__form-label'>Repeat Password
 									<input className='auth__form-input' 
 										{...register('repeatPassword', {
-											required: 'Поле обязательно для заполнения'
+											required: 'The field is required'
 										})}
 										value={repeatPassword} 
 										onChange = {(e) => setrepeatPassword(e.target.value)} 
 										type= {isChecked ? 'text' : 'password'}
-										placeholder='Введите пароль'
+										placeholder='Repeat password'
 									/>
 								</label>
 								<div className='auth__form-error'>{errors?.repeatPassword && <p>{errors?.repeatPassword?.message || 'error'}</p>}</div>
@@ -72,11 +72,11 @@ const ResetPassword = () => {
 									checked = {isChecked}
 									onChange={e => {setIsChecked(e.target.checked)}}
 									/>
-									Показать пароль
+									Show the password
 									</label>
 								</div>
 							</div>
-								<MyButton>Сохранить</MyButton> 
+								<MyButton>Save</MyButton> 
 						</form>
 					</div>
 				</div>

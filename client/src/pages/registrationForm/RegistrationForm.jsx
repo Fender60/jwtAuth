@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Controller, useForm } from "react-hook-form";
 import MyButton from "../../components/myButton/MyButton";
 import store from '../../actions/store';
-import NumberFormat from "react-number-format";
+import { PatternFormat } from 'react-number-format';
 import { useAuth } from '../../components/context/useAuth';
 import {observer} from 'mobx-react-lite';
 import '../../static/scss/login_registartion.scss'
@@ -24,7 +24,7 @@ const Registration = () => {
 	const sendData = () => {
 		let editPhone = '38' + phone;
 		password !== repeatPassword
-		? setError('repeatPassword', { type: 'custom', message: 'Пароль не совпадает' })
+		? setError('repeatPassword', { type: 'custom', message: 'The password does not match' })
 		: registration(editPhone, password);
 	}
 
@@ -32,27 +32,27 @@ const Registration = () => {
 			<div className='auth'>
 				<div className="auth__container">
 					<div className="auth__content">
-						<div className="auth__title">Регистрация</div>
+						<div className="auth__title">Registration</div>
 
 						<div style={{color: 'red'}}>{store.servError.registration}</div>
 
 						<form className="auth__form" onSubmit={handleSubmit(sendData)}>
 							<div className='auth__form-item'>
-								<label className='auth__form-label'> Номер телефона
+								<label className='auth__form-label'> Phone number
 									<Controller
 										control={control}
 										name = 'phone'
-										rules={{required: 'Поле обязательно для заполнения',
+										rules={{required: 'The field is required',
 										pattern: /^\+38\s+\(0\d{2}\)\s\d{3}-\d{2}-\d{2}/}}
 										render={({field: {onBlur, onChange, onSubmit}, fieldState: {error}}) => (
-											<NumberFormat className='auth__form-input'
+											<PatternFormat className='auth__form-input'
 												onSubmit = {onSubmit}
 												onBlur = {onBlur}
 												onChange = {onChange}
 												value={phone} 
 												type={'tel'} 
 												format="+38 (###) ###-##-##" 
-												mask="_"
+												allowEmptyFormatting mask="_"
 												onValueChange= {(values) => {
 													const {value} = values
 													setPhone(value)
@@ -61,35 +61,35 @@ const Registration = () => {
 										)}
 									/>
 								</label>
-								<div className='auth__form-error'>{errors?.phone && <p>{errors?.phone?.message || 'Не верный формат номера телефона'}</p>}</div>
+								<div className='auth__form-error'>{errors?.phone && <p>{errors?.phone?.message || 'Incorrect phone number format'}</p>}</div>
 							</div>
 
 							<div className='auth__form-item'>
-								<label className='auth__form-label'>Пароль
+								<label className='auth__form-label'>Password
 								<input className='auth__form-input'
 								{...register('password', {
 									minLength: 8,
-									required: 'Поле обязательно для заполнения'
+									required: 'The field is required'
 								})}
 									value={password} 
 									onChange = {(e) => setPassword(e.target.value)} 
 									type= {isChecked ? 'text' : 'password'} 
-									placeholder='Введите пароль'
+									placeholder='Enter the password'
 									autoComplete="new-password"
 								/>
 								</label>
-								<div className='auth__form-error'>{errors?.password && <p>{errors?.password?.message || 'Пароль должен быть не менее 8 символов'}</p>}</div>
+								<div className='auth__form-error'>{errors?.password && <p>{errors?.password?.message || 'The password should be at least 8 characters'}</p>}</div>
 							</div>
 							<div className='auth__form-item'>
-								<label className='auth__form-label'>Введите пароль еще раз
+								<label className='auth__form-label'>Repeat the password
 									<input className='auth__form-input' 
 										{...register('repeatPassword', {
-											required: 'Поле обязательно для заполнения'
+											required: 'The field is required'
 										})}
 										value={repeatPassword} 
 										onChange = {(e) => setrepeatPassword(e.target.value)} 
 										type= {isChecked ? 'text' : 'password'}
-										placeholder='Введите пароль'
+										placeholder='Repeat the password'
 									/>
 								</label>
 								<div className='auth__form-error'>{errors?.repeatPassword && <p>{errors?.repeatPassword?.message || 'error'}</p>}</div>
@@ -100,11 +100,11 @@ const Registration = () => {
 									checked = {isChecked}
 									onChange={e => {setIsChecked(e.target.checked)}}
 									/>
-									Показать пароль
+										Show the password
 									</label>
 								</div>
 							</div>
-								<MyButton>Регистрация</MyButton> 
+								<MyButton>Registration</MyButton> 
 						</form>
 					</div>
 				</div>

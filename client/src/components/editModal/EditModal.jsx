@@ -12,17 +12,18 @@ const EditModal = ({body, visible, setVisible}) => {
 	const [date, setDate] = useState('');
 	const [text, setText] = useState(body.text);
 
-	const {sortOption, sortReminders} = useContext(Context);
-
+	const {setReminders, setPage} = useContext(Context);
 
 	const editSaveReminder = (e) => {
 		e.preventDefault();
 		store.editReminder(date, text, body._id)
-		.then(() => store.fetchReminders()
-		.then((value) => sortReminders(value, sortOption)));
+		.then(() => store.fetchReminders(1, 5))
+		.then((value) => setReminders(value));
+		setDate('');
+		setText('');
+		setPage(1);
 		setVisible(false);
 	}
-
 
 	if(visible){
 		rootClass.push(classes.active);
@@ -32,25 +33,26 @@ const EditModal = ({body, visible, setVisible}) => {
 		<div className={rootClass.join(' ')}
 			onClick = {() => setVisible(false)}>
 			<div className={classes.content} onClick = {(e) => e.stopPropagation()}>
-			<div className={classes.title}>Редактирование</div>
+			<div className={classes.title}>Editing</div>
 			<form>
 				<div className={classes.date}>
 					<TextField
 						id="datetime-local"
-						label="Дата, время"
+						label="Date, time"
 						type="datetime-local"
 						className={classes.textField}
 						onChange = {(e) => setDate(e.target.value)}
-						InputLabelProps={{
-							shrink: true,
+						slotProps = {{
+							inputLabel: {
+								shrink: true,
+							}
 						}}
 					/>
 				</div>
 				<FormControl fullWidth>
 					<TextField
 						id="outlined-textarea"
-						label="Текст напоминания"
-						placeholder="Текст напоминания"
+						label="Your reminder"
 						multiline
 						rows={4}
 						value={text}
@@ -58,7 +60,7 @@ const EditModal = ({body, visible, setVisible}) => {
 					/>
 				</FormControl>
 				
-				<MyButton onClick={editSaveReminder}>Сохранить</MyButton>
+				<MyButton onClick={editSaveReminder}>Save</MyButton>
 			</form>
 			</div>
 		</div>

@@ -8,15 +8,14 @@
 	padding: 60px 0px 60px 0px;
 	background: url(../../static/images/login_registration/background.jpg) 0 0/100% 100% no-repeat;
 	z-index: 1;
-  &__container {
-  }
+
   &__content {
     background: #f9f9f9;
-    background: -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 100%);
-    background: -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
-    background: -o-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
-    background: -ms-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
-    background: linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+    background: -moz-linear-gradient(to top,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 100%);
+    background: -webkit-linear-gradient(to top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+    background: -o-linear-gradient(to top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+    background: -ms-linear-gradient(to top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+    background: linear-gradient(to top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f9f9f9',GradientType=0 );
     -webkit-box-shadow: 0 1px 0 #fff inset;
     -moz-box-shadow: 0 1px 0 #fff inset;
@@ -40,11 +39,11 @@
 
     &:after, &:before {
       background: #f9f9f9;
-      background: -moz-linear-gradient(top,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 100%);
-      background: -webkit-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
-      background: -o-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
-      background: -ms-linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
-      background: linear-gradient(top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+      background: -moz-linear-gradient(to top,  rgba(248,248,248,1) 0%, rgba(249,249,249,1) 100%);
+      background: -webkit-linear-gradient(to top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+      background: -o-linear-gradient(to top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+      background: -ms-linear-gradient(to top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
+      background: linear-gradient(to top,  rgba(248,248,248,1) 0%,rgba(249,249,249,1) 100%);
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#f9f9f9',GradientType=0 );
       border: 1px solid #c4c6ca;
       content: "";
@@ -150,9 +149,6 @@
 		padding: 0 0 20px 0;
 		}
 		&-error {
-			// position: absolute;
-			// bottom: 0;
-			// left: 40px;
 			color: red;
 		}
 		&-label {

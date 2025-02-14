@@ -16,12 +16,12 @@ const Reminder = (props) => {
 
 	const [editModal, setEditModal] = useState(false);
 
-	const {reminders ,setReminders, page, setPage, limit} = useContext(Context);
+	const {reminders ,setReminders} = useContext(Context);
 
 	const date = new Date(props.reminder.date).toLocaleDateString();
 	const time = new Date(props.reminder.date).toLocaleTimeString();
 
-	//Применение стилей в зависимости от статуса напоминания
+	//Application of styles depending on the status of a reminder
 	const reminderText = (status) => {
 		if(status === 'done'){
 			return <div className='reminder__text'>
@@ -63,13 +63,13 @@ const Reminder = (props) => {
 					{reminderText(props.reminder.status)}
 				</div>
 				<div className="reminder__button">
-					<Tooltip title="Редактировать">
+					<Tooltip title="Edit">
 						<IconButton aria-label="edit" size="small" onClick={() => setEditModal(true)}>
 							<EditIcon fontSize="small" />
 						</IconButton>
 					</Tooltip>
 
-					<Tooltip title="Удалить">
+					<Tooltip title="Delete">
 						<IconButton aria-label="delete" size="small" onClick={() => remove(props.reminder)}>
 							<DeleteIcon fontSize="small" />
 						</IconButton>
