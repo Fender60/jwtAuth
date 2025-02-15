@@ -43,6 +43,7 @@ class ReminderController {
 		try {
 				const {userId} = req.cookies;
 				const {page, limit} = req.query;
+				console.log(userId, page, limit);
 				const reminders = await reminderService.getReminder(userId, page, limit);
 				res.set('Access-Control-Expose-Headers', 'X-Total-Count')
 				res.set('X-Total-Count', reminders.totalCount);
