@@ -28,12 +28,12 @@ Users should be able to:
 ### Screenshot
 
 ![](./login.png)
-![](./home.png)
+![](./home.PNG)
 
 ### Links
 
-- Solution URL: [My solution](https://github.com/Fender60/)
-- Live Site URL: [Live site](https://fender60.github.io/)
+- Solution URL: [My solution](https://github.com/Fender60/jwtAuth.git)
+- Live Site URL: [Live site](https://fender60.github.io/jwtAuth/)
 
 ## My process
 
