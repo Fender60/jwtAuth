@@ -7,13 +7,13 @@ class UserController {
 		try {
 			const errors = validationResult(req);
 			if(!errors.isEmpty()){
-				return next(ApiError.BadRequest('Длина пароля дожна быть не менее 8 символов', errors.array()))
+				return next(ApiError.BadRequest('Password length should be at least 8 characters', errors.array()))
 			}
 			const {phone, password} = req.body;
 			const userData = await userService.registration(phone, password);
 			res.cookie('refreshToken', userData.refreshToken, {maxAge: 30*24*60*60*1000, httpOnly: true, secure: true, sameSite: 'none'});
 			res.cookie('userId', userData.user.id, {maxAge: 30*24*60*60*1000, httpOnly: true, secure: true, sameSite: 'none'});
-			res.json({message: 'Cсылка для подтверждения: http://t.me/MsgRemBot'});
+			res.json({message: 'Sending for confirmation: http://t.me/MsgRemBot'});
 			return res.json(userData);
 		}
 		catch(e) {

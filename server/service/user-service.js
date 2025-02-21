@@ -8,7 +8,7 @@ class UserService {
 	async registration(phone, password){
 		const candidate = await UserModel.findOne({phone});
 		if(candidate){
-			throw ApiError.BadRequest(`Такой пользователь уже существует`);
+			throw ApiError.BadRequest(`Such a user already exists`);
 		}
 		const hashPassword = await bcrypt.hash(password, 3);
 
@@ -24,11 +24,11 @@ class UserService {
 	async login(phone, password) {
 		const user = await UserModel.findOne({phone});
 		if(!user) {
-			throw ApiError.BadRequest('Неверный логин и/или пароль')
+			throw ApiError.BadRequest('Inappropriate login and/or password')
 		}
 		const isPassEquals = await bcrypt.compare(password, user.password);
 		if(!isPassEquals) {
-			throw ApiError.BadRequest('Неверный логин и/или пароль');
+			throw ApiError.BadRequest('Inappropriate login and/or password');
 		}
 		const userDto = new UserDto(user);
 		const tokens = tokenService.generateTokens({...userDto});
@@ -67,7 +67,7 @@ class UserService {
 	async reset(phone, password) {
 		const user = await UserModel.findOne({phone});
 		if(!user){
-			throw ApiError.BadRequest(`Такой пользователь не существует`);
+			throw ApiError.BadRequest(`Such a user does not exist`);
 		}
 		const hashPassword = await bcrypt.hash(password, 3);
 		user.password = hashPassword;
